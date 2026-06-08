@@ -108,7 +108,7 @@ function Navbar({ showNav, menuOpen, onToggleMenu, onCloseMenu }) {
         <ul className="nav-links">
           <li>
             <a
-              href="https://docs.google.com/document/d/1wbN1skVuurra3VQwhltTP88I4aI6fFda6UKUqP1jjQQ/edit?usp=sharing"
+              href="https://docs.google.com/document/d/1l0JXRqzWRrhK_46NVYhZpQBieQJiJ3ysQz6AGv0x_uE/edit?usp=sharing"
               target="_blank"
               rel="noreferrer"
             >
