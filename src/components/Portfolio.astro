@@ -1,0 +1,100 @@
+---
+interface Item {
+  index: number;
+  title: string;
+  image: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+const sorted = [...items].sort((a, b) => b.index - a.index);
+const palette = ["var(--yellow)", "var(--blue)", "var(--green)", "var(--orange)", "var(--purple)"];
+---
+
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Portfolio</span>
+      <h2 class="section-title">
+        Lets have a look at my <span class="mark">Projects</span>
+      </h2>
+    </div>
+
+    <div class="portfolio-grid">
+      {
+        sorted.map((item, i) => (
+          <article class="pf-card" style={`--accent:${palette[i % palette.length]}`}>
+            <div class="pf-thumb">
+              <img
+                src={item.image}
+                alt={`${item.title} preview`}
+                loading="lazy"
+              />
+              <span class="pf-num">{String(item.index).padStart(2, "0")}</span>
+            </div>
+            <h3 class="pf-title">{item.title}</h3>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .pf-card {
+    background: var(--white);
+    border: var(--border-thick);
+    box-shadow: var(--shadow);
+    padding: 12px;
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease;
+  }
+
+  .pf-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .pf-thumb {
+    position: relative;
+    border: var(--border);
+    background: var(--accent);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .pf-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pf-num {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    background: var(--ink);
+    color: var(--white);
+    font-weight: 800;
+    padding: 4px 10px;
+    font-size: 0.9rem;
+  }
+
+  .pf-title {
+    margin-top: 12px;
+    padding: 0 4px 4px;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+</style>

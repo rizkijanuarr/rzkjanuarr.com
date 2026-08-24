@@ -1,18 +1,29 @@
 [
   {
+    "index": 1,
     "company_name": "PT MAXXI TANI TEKNOLOGI",
     "status": "Internship",
     "periode": "2024 - 2025",
-    "role": "Backend Engineer",
+    "role": "Backend Developer",
     "location": "Surabaya, Ciputra World",
     "description": "Developed and maintained backend APIs, optimized data flow between services, and improved system stability for day-to-day product operations."
   },
   {
+    "index": 2,
     "company_name": "PT GIFTLINE ASIA PASIFIK",
     "status": "Contract",
     "periode": "2025 - 2026",
-    "role": "Android Engineer",
+    "role": "Mobile Developer",
     "location": "Surabaya, Jambangan",
     "description": "Built Android features with attention to user experience and performance, collaborating across teams to deliver stable and maintainable mobile releases."
+  },
+  {
+    "index": 3,
+    "company_name": "PT KERETA API INDONESIA (Under PT FAN TEKNOLOGI)",
+    "status": "Contract",
+    "periode": "2026 - Present",
+    "role": "Mobile Developer",
+    "location": "Bandung, Indonesia",
+    "description": "Continued development of a mobile reporting application for Sarana Depo and Balayasa Lokomotif used across Indonesia, built with Flutter and Provider; resolved 20 bug reports on joining and improved the development workflow with ChuckerFlutter integration and a lightweight CI/CD pipeline."
   }
 ]

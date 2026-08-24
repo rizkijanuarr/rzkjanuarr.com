@@ -1,0 +1,164 @@
+---
+interface Item {
+  index: number;
+  company_name?: string;
+  institution_name?: string;
+  status: string;
+  periode: string;
+  role: string;
+  location: string;
+  gpa?: string | null;
+  description: string;
+}
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  intro: string;
+  items: Item[];
+  showGpa?: boolean;
+  accent?: string;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  intro,
+  items,
+  showGpa = false,
+  accent = "var(--blue)",
+} = Astro.props;
+
+// Sort by index DESC (newest first), without mutating source.
+const sorted = [...items].sort((a, b) => b.index - a.index);
+---
+
+<section class="section" id={id}>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="section-title" set:html={title} />
+      <p class="section-intro">{intro}</p>
+    </div>
+
+    <div class="timeline">
+      {
+        sorted.map((item) => (
+          <article class="tl-card" style={`--accent:${accent}`}>
+            <div class="tl-top">
+              <h3 class="tl-name">
+                {item.company_name || item.institution_name}
+              </h3>
+              <span class="tl-period">{item.periode}</span>
+            </div>
+
+            <p class="tl-role">{item.role}</p>
+
+            <div class="tl-tags">
+              <span class="tag">{item.status}</span>
+              <span class="tag">📍 {item.location}</span>
+              {showGpa && item.gpa ? (
+                <span class="tag">🎓 {item.gpa}</span>
+              ) : null}
+            </div>
+
+            <p class="tl-desc">{item.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 26px;
+  }
+
+  .tl-card {
+    background: var(--white);
+    border: var(--border-thick);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    position: relative;
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease;
+  }
+
+  .tl-card::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    height: 12px;
+    background: var(--accent);
+    border: var(--border-thick);
+    border-bottom: none;
+  }
+
+  .tl-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .tl-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .tl-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .tl-period {
+    flex-shrink: 0;
+    background: var(--ink);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+
+  .tl-role {
+    margin-top: 10px;
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--accent);
+    display: inline-block;
+    padding: 3px 10px;
+    border: var(--border);
+  }
+
+  .tl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 4px 10px;
+    border: var(--border);
+    background: var(--paper);
+  }
+
+  .tl-desc {
+    margin-top: 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+</style>

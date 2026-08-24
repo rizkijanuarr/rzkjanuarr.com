@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import Timeline from "../components/Timeline.astro";
+import ChipList from "../components/ChipList.astro";
+import Portfolio from "../components/Portfolio.astro";
+import Footer from "../components/Footer.astro";
+
+import workData from "../data/02_my_work.json";
+import educationData from "../data/03_my_education.json";
+import skillData from "../data/04_my_main_skill.json";
+import toolsData from "../data/05_my_tools_workflow.json";
+import portfolioData from "../data/06_my_portfolio.json";
+---
+
+<BaseLayout>
+  <Navbar />
+  <main>
+    <Hero />
+
+    <Timeline
+      id="work"
+      eyebrow="Career"
+      title={`My <span class="mark">Work Experience</span>`}
+      intro=""
+      items={workData}
+      accent="var(--orange)"
+    />
+
+    <Timeline
+      id="education"
+      eyebrow="Background"
+      title={`My <span class="mark">Educational</span> Journey`}
+      intro=""
+      items={educationData}
+      showGpa
+      accent="var(--blue)"
+    />
+
+    <ChipList
+      id="skills"
+      eyebrow="Stack"
+      title={`Main <span class="mark">Skills</span>`}
+      intro=""
+      items={skillData}
+      accent="var(--green)"
+    />
+
+    <ChipList
+      id="tools"
+      eyebrow="Workflow"
+      title={`<span class="mark">Tools</span> & Current Workflow`}
+      intro=""
+      items={toolsData}
+      accent="var(--purple)"
+    />
+
+    <Portfolio items={portfolioData} />
+  </main>
+  <Footer />
+</BaseLayout>

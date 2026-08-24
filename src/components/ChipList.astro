@@ -1,0 +1,84 @@
+---
+interface Item {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  intro: string;
+  items: Item[];
+  accent?: string;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  intro,
+  items,
+  accent = "var(--green)",
+} = Astro.props;
+---
+
+<section class="section" id={id}>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="section-title" set:html={title} />
+      <p class="section-intro">{intro}</p>
+    </div>
+
+    <div class="chip-grid">
+      {
+        items.map((item) => (
+          <div class="chip" style={`--accent:${accent}`}>
+            <span class="chip-label">{item.label}</span>
+            <span class="chip-value">{item.value}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .chip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .chip {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 18px 20px;
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease;
+  }
+
+  .chip:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow);
+  }
+
+  .chip-label {
+    display: inline-block;
+    font-weight: 800;
+    background: var(--accent);
+    border: var(--border);
+    padding: 3px 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+
+  .chip-value {
+    display: block;
+    font-weight: 500;
+    font-size: 0.98rem;
+  }
+</style>
